@@ -11,7 +11,7 @@ export const POSES = [
 ];
 
 export const RACES = [
-  { id: 'default', label: 'Diverse' },
+  { id: 'diverse', label: 'Diverse' },
   { id: 'caucasian', label: 'Caucasian' },
   { id: 'black', label: 'Black' },
   { id: 'asian', label: 'Asian' },
@@ -35,38 +35,41 @@ export const ASPECT_RATIOS = [
   { id: '16:9', label: 'Wide (16:9)' },
 ];
 
-export const MODEL_SHOT_PROMPT = (config: { modelType: string, modelRace: string, pose: string, background: string }) => {
+export const MODEL_SHOT_PROMPT = (config: { modelType: string, modelRace: string, pose: string, background: string, customInstructions?: string }) => {
   let envDescription = '';
   switch (config.background) {
     case 'Urban':
-      envDescription = 'A stylish urban city street at golden hour, featuring concrete textures, modern architecture in the background, and natural city lighting.';
+      envDescription = 'A stylish urban city street at golden hour, featuring concrete textures and modern architecture.';
       break;
     case 'Outdoors':
-      envDescription = 'A serene outdoor setting with natural daylight, soft greenery or a park path in the blurred background, creating a high-end lifestyle look.';
+      envDescription = 'A lush outdoor setting with vibrant tropical plants, soft natural sunlight, and a premium resort vibe.';
       break;
     case 'Active':
-      envDescription = 'A dynamic sports environment, like a modern basketball court or an upscale gym with professional athletic lighting and clean industrial details.';
+      envDescription = 'A modern and colorful basketball court or community space with clean lines and dynamic energy.';
       break;
     default:
-      envDescription = 'A professional photo studio with a clean white floor and a clean white wall, featuring a subtle horizon line and soft studio lighting.';
+      envDescription = 'A professional high-key photo studio with a clean white floor and background, subtle depth, and soft lighting.';
   }
 
   const raceDesc = config.modelRace === 'Diverse' ? 'fashion model' : `${config.modelRace} fashion model`;
 
   return `
-    High-end professional photography.
-    Subject: A ${config.modelType} ${raceDesc} wearing the exact pants from the uploaded image.
+    High-end professional photography for Zimbabalooba brand.
+    Subject: A ${config.modelType} ${raceDesc} wearing the exact African cotton pants from the uploaded image.
     Pose: The model is in a ${config.pose === 'Shop Display' ? 'relaxed, natural posture, standing at a slight 3/4 side angle' : config.pose} position.
     Environment: ${envDescription}
-    Environmental Details: 
-    - Realistic lighting creating soft, high-end shadows on the ground.
-    - Professional depth of field with the model in sharp focus.
+    
+    ${config.customInstructions ? `ADDITIONAL STYLE NOTES: ${config.customInstructions}` : ''}
+
+    CRITICAL BRAND DETAILS:
+    - Preserve the exact hand-dyed patterns, vibrant colors, and 100% African cotton texture of the original pants.
+    - Ensure the fabric looks natural, with realistic folds and drape based on the ${config.pose}.
+    - The model should have an "adventurous and joyful" expression or vibe.
     Aesthetics:
-    - Full body or lower body framing including hips, legs, and feet.
-    - Model is wearing generic, high-fashion footwear that perfectly complements the ${config.background} theme and the pants.
-    - CRITICAL: Perfectly preserve the color, texture, material, pattern, and unique details of the original pants provided in the image.
-    - The fabric should drape, fold, and wrinkle naturally based on the ${config.pose} pose and ${config.background} context.
-    - Ensure a clean interaction between the pants hem and the shoes or ground.
-    - Resolution: Sharp, commercial-grade quality, clean edges, zero artifacts.
+    - Full body framing from hips to feet.
+    - Model wears minimalist footwear that doesn't distract from the vibrant pants.
+    - Lighting should highlight the unique dye patterns and high-quality weave of the fabric.
+    - Professional depth of field, model is in sharp focus.
+    Resolution: Studio-grade quality, commercial advertisement ready.
   `;
 };
