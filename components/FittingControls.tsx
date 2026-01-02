@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { FittingConfig, ModelType } from '../types';
-import { POSES, BACKGROUNDS, ASPECT_RATIOS } from '../constants';
+import { POSES, BACKGROUNDS, ASPECT_RATIOS, RACES } from '../constants';
 
 interface FittingControlsProps {
   config: FittingConfig;
@@ -15,7 +15,7 @@ const FittingControls: React.FC<FittingControlsProps> = ({ config, onChange }) =
 
   return (
     <div className="space-y-6">
-      {/* Model Type */}
+      {/* Model Gender/Type */}
       <div>
         <label className="block text-sm font-semibold text-gray-700 mb-3">Model Preference</label>
         <div className="grid grid-cols-3 gap-2">
@@ -30,6 +30,26 @@ const FittingControls: React.FC<FittingControlsProps> = ({ config, onChange }) =
               `}
             >
               {type}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Model Ethnicity/Race */}
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-3">Model Ethnicity</label>
+        <div className="flex flex-wrap gap-2">
+          {RACES.map((race) => (
+            <button
+              key={race.id}
+              onClick={() => updateConfig('modelRace', race.label)}
+              className={`px-3 py-2 rounded-xl text-[10px] font-bold border-2 transition-all
+                ${config.modelRace === race.label 
+                  ? 'border-indigo-600 bg-indigo-600 text-white' 
+                  : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}
+              `}
+            >
+              {race.label}
             </button>
           ))}
         </div>
@@ -85,7 +105,7 @@ const FittingControls: React.FC<FittingControlsProps> = ({ config, onChange }) =
       {/* Pose Selection */}
       <div>
         <label className="block text-sm font-semibold text-gray-700 mb-3">Model Pose</label>
-        <div className="space-y-2 max-h-[280px] overflow-y-auto pr-2 custom-scrollbar">
+        <div className="space-y-2 max-h-[200px] overflow-y-auto pr-2 custom-scrollbar">
           {POSES.map((pose) => (
             <button
               key={pose.id}

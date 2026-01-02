@@ -6,6 +6,7 @@ export const generateModelFit = async (
   base64Image: string,
   config: { 
     modelType: string, 
+    modelRace: string,
     pose: string, 
     background: string, 
     aspectRatio: "1:1" | "3:4" | "4:3" | "9:16" | "16:9" 
@@ -22,6 +23,7 @@ export const generateModelFit = async (
 
   const prompt = MODEL_SHOT_PROMPT({
     modelType: config.modelType,
+    modelRace: config.modelRace,
     pose: config.pose,
     background: config.background
   });

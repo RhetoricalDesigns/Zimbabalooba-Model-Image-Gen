@@ -10,6 +10,16 @@ export const POSES = [
   { id: 'crouching', label: 'Urban Crouch', icon: 'fa-child-reaching', description: 'Modern street-style aesthetic' },
 ];
 
+export const RACES = [
+  { id: 'default', label: 'Diverse' },
+  { id: 'caucasian', label: 'Caucasian' },
+  { id: 'black', label: 'Black' },
+  { id: 'asian', label: 'Asian' },
+  { id: 'hispanic', label: 'Hispanic' },
+  { id: 'south-asian', label: 'South Asian' },
+  { id: 'middle-eastern', label: 'Middle Eastern' },
+];
+
 export const BACKGROUNDS = [
   { id: 'clean', label: 'Clean', icon: 'fa-border-none', description: 'Minimalist studio setup with soft shadows' },
   { id: 'urban', label: 'Urban', icon: 'fa-city', description: 'Modern city street, concrete and glass' },
@@ -25,7 +35,7 @@ export const ASPECT_RATIOS = [
   { id: '16:9', label: 'Wide (16:9)' },
 ];
 
-export const MODEL_SHOT_PROMPT = (config: { modelType: string, pose: string, background: string }) => {
+export const MODEL_SHOT_PROMPT = (config: { modelType: string, modelRace: string, pose: string, background: string }) => {
   let envDescription = '';
   switch (config.background) {
     case 'Urban':
@@ -41,9 +51,11 @@ export const MODEL_SHOT_PROMPT = (config: { modelType: string, pose: string, bac
       envDescription = 'A professional photo studio with a clean white floor and a clean white wall, featuring a subtle horizon line and soft studio lighting.';
   }
 
+  const raceDesc = config.modelRace === 'Diverse' ? 'fashion model' : `${config.modelRace} fashion model`;
+
   return `
     High-end professional photography.
-    Subject: A ${config.modelType} model wearing the exact pants from the uploaded image.
+    Subject: A ${config.modelType} ${raceDesc} wearing the exact pants from the uploaded image.
     Pose: The model is in a ${config.pose === 'Shop Display' ? 'relaxed, natural posture, standing at a slight 3/4 side angle' : config.pose} position.
     Environment: ${envDescription}
     Environmental Details: 

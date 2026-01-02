@@ -10,6 +10,7 @@ const App: React.FC = () => {
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [fittingConfig, setFittingConfig] = useState<FittingConfig>({
     modelType: 'female',
+    modelRace: 'Diverse',
     pose: 'Shop Display',
     background: 'Clean',
     aspectRatio: '3:4'
@@ -179,7 +180,7 @@ const App: React.FC = () => {
                   </div>
                   <h3 className="text-gray-900 font-bold text-lg mb-2">Ready for Fitting</h3>
                   <p className="text-gray-400 text-sm leading-relaxed">
-                    Upload your pants to see them fitted on a model in a professional {fittingConfig.background.toLowerCase()} environment.
+                    Upload your pants to see them fitted on a {fittingConfig.modelRace.toLowerCase()} model in a professional {fittingConfig.background.toLowerCase()} environment.
                   </p>
                 </div>
               )}
