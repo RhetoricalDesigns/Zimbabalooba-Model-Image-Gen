@@ -1,0 +1,7 @@
+{
+  "name": "AI Fashion Virtual Fit",
+  "description": "Transform flat-lay pant photos into professional studio model shots using advanced AI image editing. Ensure realistic fit, texture preservation, and clean studio aesthetics.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
